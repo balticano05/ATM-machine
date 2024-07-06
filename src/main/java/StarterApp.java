@@ -1,14 +1,12 @@
-import entity.ATM;
-import security.ATMMenu;
+import controller.ATMMenu;
+import utils.CardStorage;
 
 public class StarterApp {
+    public static CardStorage storageCards = CardStorage.getInstance();
 
     public static void run(){
-
-        ATM atm = new ATM();
         ATMMenu atmMenu = new ATMMenu();
-
-        atmMenu.runSession(atm);
+        atmMenu.runSession();
     }
 
 }

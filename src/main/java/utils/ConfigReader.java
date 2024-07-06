@@ -15,7 +15,8 @@ public final class ConfigReader {
     private ConfigReader() {
     }
 
-    {properties = new Properties();
+    {
+        properties = new Properties();
 
         try (InputStream input = new FileInputStream(PATH_TO_PROPERTIES)) {
 

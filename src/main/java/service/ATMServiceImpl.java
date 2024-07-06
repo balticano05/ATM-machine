@@ -7,6 +7,10 @@ import utils.Checker;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import utils.StringConstants;
+
+import static utils.StringConstants.SEPARATOR;
+
 public class ATMServiceImpl implements ATMService {
 
     private static Scanner sc;
@@ -16,32 +20,34 @@ public class ATMServiceImpl implements ATMService {
         sc = new Scanner(System.in);
     }
 
-    public void checkBalance(Card card, ATM atm) {
+    @Override
+    public void checkBalance(Card card) {
 
-        System.out.println("==================Проверка баланса==================");
+        System.out.println(StringConstants.TEXT_LABEL_BALANCE);
 
-        System.out.println("На счету: " + atm.showMoney(card));
+        System.out.println("На счету: " + ATM.showMoney(card));
 
-        System.out.println("===================================================");
+        System.out.println(StringConstants.SEPARATOR);
     }
 
-    public void withdrawMoney(Card card, ATM atm) {
+    @Override
+    public void withdrawMoney(Card card) {
 
-        System.out.println("===================Снятие средств==================");
+        System.out.println(StringConstants.TEXT_LABEL_WITH_WITHDRAWAL_OF_FUNDS);
 
         try {
 
             double sum = promptForSum("Введите сумму, которую хотите снять: ");
 
-            if (validateWithdrawal(card, atm, sum)) {
+            if (validateWithdrawal(card, sum)) {
 
-                atm.getMoney(card, sum);
+                ATM.getMoney(card, sum);
 
                 ATM.setAllSum(ATM.getAllSum() - sum);
 
                 System.out.println("Списано: " + sum);
 
-                System.out.println("Сумма в банкомате: " + ATM.getAllSum());
+                System.out.println("Сумма в банкомате: "+ ATM.getAllSum());
             }
         } catch (InputMismatchException e) {
             handleInputMismatchException();
@@ -49,12 +55,13 @@ public class ATMServiceImpl implements ATMService {
             handleValidationException(e);
         }
 
-        System.out.println("===================================================");
+        System.out.println(SEPARATOR);
     }
 
-    public void depositMoney(Card card, ATM atm) {
 
-        System.out.println("=================Пополнение баланса================");
+    public void depositMoney(Card card) {
+
+        System.out.println(StringConstants.TEXT_LABEL_REPLENISHMENT);
 
         try {
 
@@ -62,11 +69,11 @@ public class ATMServiceImpl implements ATMService {
 
             if (validateDeposit(card, sum)) {
 
-                atm.addMoney(card, sum);
+                ATM.addMoney(card, sum);
 
                 ATM.setAllSum(ATM.getAllSum() + sum);
 
-                System.out.println("Положено: " + sum);
+                System.out.println("Положено: "+ sum);
 
                 System.out.println("Сумма в банкомате: " + ATM.getAllSum());
             }
@@ -76,7 +83,7 @@ public class ATMServiceImpl implements ATMService {
             handleValidationException(e);
         }
 
-        System.out.println("===================================================");
+        System.out.println(StringConstants.SEPARATOR);
     }
 
     private static double promptForSum(String message) {
@@ -86,7 +93,7 @@ public class ATMServiceImpl implements ATMService {
         return sc.nextDouble();
     }
 
-    private static boolean validateWithdrawal(Card card, ATM atm, double sum) throws Exception {
+    private static boolean validateWithdrawal(Card card, double sum) throws Exception {
 
         Checker.validateRangeSum(sum);
 
@@ -120,4 +127,3 @@ public class ATMServiceImpl implements ATMService {
         sc.nextLine();
     }
 }
-

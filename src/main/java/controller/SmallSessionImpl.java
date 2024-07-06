@@ -1,4 +1,4 @@
-package security;
+package controller;
 
 import entity.ATM;
 import entity.Card;
@@ -9,7 +9,7 @@ import utils.ParseManager;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class SmallSessionImpl implements SmallSession{
+public class SmallSessionImpl implements SmallSession {
 
     private static Scanner sc;
 
@@ -17,7 +17,8 @@ public class SmallSessionImpl implements SmallSession{
         this.sc = new Scanner(System.in);
     }
 
-    public void handleCardSession(ATM atm) {
+    @Override
+    public void handleCardSession() {
 
         boolean isRunning = true;
 
@@ -36,7 +37,7 @@ public class SmallSessionImpl implements SmallSession{
 
             if (isCardBlocked(foundCard)) break;
 
-            handlePinCodeSession(foundCard, atm);
+            handlePinCodeSession(foundCard);
 
             if (isCardBlockedAfterAttempts(foundCard)) break;
         }
@@ -55,6 +56,7 @@ public class SmallSessionImpl implements SmallSession{
 
         return false;
     }
+
 
     private static boolean isValidCardNumber(String cardNumber) {
 
@@ -115,7 +117,8 @@ public class SmallSessionImpl implements SmallSession{
         return false;
     }
 
-    public void handlePinCodeSession(Card foundCard, ATM atm) {
+    @Override
+    public void handlePinCodeSession(Card foundCard) {
 
         while (foundCard.getAttempts() > 0) {
 
@@ -125,7 +128,7 @@ public class SmallSessionImpl implements SmallSession{
 
             if (isPinCodeCorrect(foundCard, pinCode)) {
 
-                grantAccess(foundCard, atm);
+                grantAccess(foundCard);
 
                 break;
 
@@ -153,7 +156,7 @@ public class SmallSessionImpl implements SmallSession{
         return pinCode.equals(foundCard.getPin());
     }
 
-    private static void grantAccess(Card foundCard, ATM atm) {
+    private static void grantAccess(Card foundCard) {
 
         System.out.println("Пин-код принят. Доступ разрешен.");
 
@@ -161,7 +164,7 @@ public class SmallSessionImpl implements SmallSession{
 
         ATMMenu atmMenu = new ATMMenu();
 
-        atmMenu.menuAction(foundCard, atm);
+        atmMenu.menuAction(foundCard);
     }
 
     private static void handleIncorrectPinCode(Card foundCard) {
