@@ -12,7 +12,7 @@ public class Card {
     private byte attempts;
     private LocalDateTime unlockDate;
 
-    private Card(String cardNumber, String pin, double balance, boolean blocked, byte attempts, LocalDateTime unlockDate) {
+    public Card(String cardNumber, String pin, double balance, boolean blocked, byte attempts, LocalDateTime unlockDate) {
         this.cardNumber = cardNumber;
         this.pin = pin;
         this.balance = balance;
@@ -73,10 +73,6 @@ public class Card {
         if(this.attempts > 0){
             this.attempts--;
         }
-    }
-
-    public static Card buildCard(String cardNumber, String pin, double balance, LocalDateTime unlockDate,boolean blocked, byte attempts) {
-        return new Card(cardNumber, pin, balance, blocked, attempts, unlockDate);
     }
 
     public String getUnlockDateString() {

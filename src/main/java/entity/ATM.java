@@ -17,15 +17,6 @@ public class ATM {
         return card.getBalance();
     }
 
-    public static Card findCard(String cardNum) {
-        for (Card card : storageCards.getCards()) {
-            if (card.getCardNumber().equals(cardNum)) {
-                return card;
-            }
-        }
-        return null;
-    }
-
     public static Double getAllSum(){
         return storageCards.getSumInATM();
     }

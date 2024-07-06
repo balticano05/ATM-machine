@@ -1,16 +1,13 @@
-package service;
-
 import entity.ATM;
 import security.ATMMenu;
 
-public class StartApp implements StartAppImpl {
+public class StarterApp {
 
-    public StartApp() {
-    }
+    public static void run(){
 
-    public void run(){
         ATM atm = new ATM();
         ATMMenu atmMenu = new ATMMenu();
+
         atmMenu.runSession(atm);
     }
 

@@ -3,10 +3,11 @@ package utils;
 import entity.Card;
 
 import java.util.HashSet;
+import java.util.Set;
 
-public final class ParserManager {
+public final class ParseManager {
 
-    private ParserManager() {}
+    private ParseManager() {}
 
     public static HashSet<Card> convertDataFromFile() {
         HashSet<Card> cards = new HashSet<>();
@@ -14,7 +15,7 @@ public final class ParserManager {
         for (String line : lines) {
             String[] data = line.split(" ");
             if (data.length == 6) {
-                cards.add(BuilderCard.build(data));
+                cards.add(CardBuilder.build(data));
             }
         }
         return cards;
