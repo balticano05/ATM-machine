@@ -3,6 +3,7 @@ Test for SENLA course.
 
 ## Зависимости
 Java 7+
+Зависимости для программы лежат в src/resources/config.properties.
 
 ## Запуск
 * Скачать проект.
