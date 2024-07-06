@@ -27,7 +27,7 @@ public class ATMSmallSession implements SmallSession{
             if (isExit(cardNumber)) break;
             if (!isValidCardNumber(cardNumber)) continue;
 
-            Card foundCard = ATM.findCard(cardNumber); // Поиск карточки по номеру
+            Card foundCard = ATM.findCard(cardNumber);
 
             if (!isCardFound(foundCard)) continue;
             if (isCardBlocked(foundCard)) break;
